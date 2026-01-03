@@ -1,0 +1,18 @@
+model = "gpt:latest"
+model_provider = "ollama"
+
+[model_providers.ollama]
+name = "Ollama"
+base_url = "http://localhost:11434/v1"
+wire_api = "responses"
+
+[mcp_servers.vibetest]
+command = "/root/vibetest-use/.venv/bin/vibetest-mcp"
+
+[mcp_servers.vibetest.env]
+GOOGLE_API_KEY = "${GOOGLE_API_KEY}"
+
+[projects]
+[projects."/root/workspace"]
+trust_level = "trusted"
+
