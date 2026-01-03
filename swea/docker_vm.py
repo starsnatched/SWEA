@@ -155,6 +155,13 @@ class DockerVM:
         if not result.success:
             raise RuntimeError(f"Failed to clone vibetest-use: {result.stderr}")
 
+        logger.info("Configuring vibetest model...")
+        result = self.execute(
+            "sed -i 's/model=\"[^\"]*\"/model=\"gemini-3-flash-preview\"/g' /root/vibetest-use/vibetest/agents.py"
+        )
+        if not result.success:
+            raise RuntimeError(f"Failed to configure vibetest model: {result.stderr}")
+
         logger.info("Setting up vibetest-use virtual environment...")
         result = self.execute(
             "cd /root/vibetest-use && /root/.local/bin/uv venv && . .venv/bin/activate && /root/.local/bin/uv pip install -e ."
